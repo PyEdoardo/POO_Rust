@@ -13,7 +13,7 @@ struct Produto {
 
 struct Estoque {
     quantidade : i32,
-    dataAdicaoEstoque : DateTime<Local>
+    data_adicao_estoque: DateTime<Local>
 }
 
 impl Produto {
@@ -27,49 +27,49 @@ impl Produto {
         }
     }
     //Getters
-    fn getNome(self) -> String {
+    fn get_nome(self) -> String {
         return self.name;
     }
-    fn getCodigo(self) -> i16 {
+    fn get_codigo(self) -> i16 {
         return self.codigo;
     }
-    fn getPreco(self) -> f64 {
+    fn get_preco(self) -> f64 {
         return self.preco;
     }
-    fn getDescricao(self) -> String {
+    fn get_descricao(self) -> String {
         return self.descricao;
     }
-    fn getEstoque(self) -> Estoque {
+    fn get_estoque(self) -> Estoque {
         return self.estoque;
     }
 
     //Setters
 
-    fn setNome(&mut self, nome: String) {
+    fn set_nome(&mut self, nome: String) {
         self.name = nome;
     }
 
-    fn setCodigo(&mut self, codigo: i16) {
+    fn set_codigo(&mut self, codigo: i16) {
         self.codigo = codigo;
     }
 
-    fn setPreco(&mut self, preco: f64) {
+    fn set_preco(&mut self, preco: f64) {
         self.preco = preco;
     }
 
-    fn setDescr(&mut self, descr: String) {
+    fn set_descr(&mut self, descr: String) {
         self.descricao = descr;
     }
 
-    fn setEstoque(&mut self, estoque: Estoque) {
+    fn set_estoque(&mut self, estoque: Estoque) {
         self.estoque = estoque;
     }
 
-    fn adicionarAoEstoque(&mut self, qt_produto: i8){
+    fn adicionar_ao_estoque(&mut self, qt_produto: i8){
         self.estoque.quantidade += qt_produto as i32;
     }
 
-    fn removerDoEstoque(&mut self, qt_produto: i8){
+    fn remover_do_estoque(&mut self, qt_produto: i8){
         if (self.estoque.quantidade <= 0) {
             println!("O Estoque está vazio, não foi possível remover!\nEstoque: {}", self.estoque.quantidade);
         }
@@ -77,8 +77,8 @@ impl Produto {
             self.estoque.quantidade -= qt_produto as i32;
         }
     }
-
-    fn toString(&self){
+    
+    fn to_string(&self){
         println!(
             "Nome: {}\nCódigo: {}\nPreço: {}, Descrição: {}\n---------------\nEstoque: {}\nData Estoque: {}\n",
             self.name,
@@ -86,13 +86,13 @@ impl Produto {
             self.preco,
             self.descricao,
             self.estoque.quantidade,
-            self.estoque.dataAdicaoEstoque
+            self.estoque.data_adicao_estoque
         )
     }
 }
 
 fn main() {
-    let mut listaProdutos = vec![Produto {codigo :1, name: String::from("Químico"), preco: 40.22, descricao: String::from("Sla"), estoque: Estoque {quantidade: 50, dataAdicaoEstoque: Local::now()}}];
+    let mut lista_produtos = vec![Produto {codigo :1, name: String::from("Químico"), preco: 40.22, descricao: String::from("Sla"), estoque: Estoque {quantidade: 50, data_adicao_estoque: Local::now()}}];
     while true {
         let mut opcao: String = String::new();
         println!("Digite uma opção: (adicionar estoque, remover estoque, printar produtos, realizar venda, adicionar Produto)");
@@ -118,10 +118,10 @@ fn main() {
                     .read_line(&mut codigo)
                     .expect("Falha ao ler a linha");
 
-                let mut codigoInt : i16 = codigo.trim().parse().unwrap();
-                for x in &mut listaProdutos {
-                    if (x.codigo == codigoInt) {
-                        x.adicionarAoEstoque(add as i8);
+                let mut codigo_int: i16 = codigo.trim().parse().unwrap();
+                for x in &mut lista_produtos {
+                    if (x.codigo == codigo_int) {
+                        x.adicionar_ao_estoque(add as i8);
                     }
                 }
             }
@@ -129,8 +129,8 @@ fn main() {
 
             }
         "printar" => {
-            for x in &listaProdutos {
-                x.toString();
+            for x in &lista_produtos {
+                x.to_string();
             }
         }
         "sair" => {
